@@ -29,15 +29,15 @@ uint32_t get_field(uint32_t word, int pos, int width);
 
 /**
  * Returns the specified word with value inserted into the selected position.
- * Inserts the lowest width bits of value into word, then returns that value
+ * Inserts the lowest width bits of value into word, then returns that new word
  * with all other bits unchanged. Any out-of-bounds values for pos or width will
  * result in an error, and the function will return word unmodified. If neither
  * pos nor width are invalid, but pos + width > 32, an error is raised and the
  * function returns word unmodified.
  * @param word The word to modify.
  * @param pos Position of the rightmost bit position of the modified portion of
- * word.
- * @param width Number of bits to read from value.
+ * word. Values may range from 0-31.
+ * @param width Number of bits to read from value. Values may range from 1-32.
  * @param value The value to be inserted into word.
  * @return The modified word.
  */
