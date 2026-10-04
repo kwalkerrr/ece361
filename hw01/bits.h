@@ -7,7 +7,8 @@
 /**
  * Prints a number (specified by width) of the lowest bits of a given integer.
  * Bits are output from most significant to least significant, and they are
- * grouped into nibbles.
+ * grouped into nibbles. If width is out-of-bounds, an error is raised and the
+ * function returns.
  * @param x The value to print the binary equivalent of.
  * @param width The number of bits to print. Values may range from 1-32.
  */
