@@ -35,3 +35,35 @@ uint32_t get_field(uint32_t word, int pos, int width) {
     uint32_t mask = (width == 32) ? UINT32_MAX : (UINT32_C(1) << width) - 1;
     return (word >> pos) & mask;
 }
+
+uint32_t set_field(uint32_t word, int pos, int width, uint32_t value) {
+    if (pos < 0 || pos > 31) {
+        fprintf(stderr, "set_field: pos %d is out of range (0-31)\n", pos);
+        return word;
+    }
+    if (width < 1 || width > 32) {
+        fprintf(stderr, "set_field: width %d is out of range (1-32)\n",
+            width);
+        return word;
+    }
+    if ((pos + width) > 32) {
+        fprintf(stderr, "set_field: pos %d and width %d sum to > 32\n",
+        pos, width);
+        return word;
+    }
+
+    // set up value to be ORed with word
+    uint32_t mask = (width == 32) ? UINT32_MAX : (UINT32_C(1) << width) -1;
+    value &= mask;
+    value <<= pos;
+
+    // clear bits pos to pos + width - 1 in word
+    mask <<= pos;
+    mask = ~mask;
+    word &= mask;
+
+    // OR value with word
+    word |= value;
+    
+    return word;
+}
