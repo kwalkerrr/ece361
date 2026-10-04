@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include <errno.h>
 
 /**
  * Prints a number (specified by width) of the lowest bits of a given integer.
