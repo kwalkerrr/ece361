@@ -47,9 +47,9 @@ uint32_t set_field(uint32_t word, int pos, int width, uint32_t value);
  * Returns a portion of value interpreted as a two's complement number (signed).
  * Reads the lowest width bits of value, interprets it as a two's complement
  * number, performs the appropriate sign extension, and returns the value as an
- * int32_t.
+ * int32_t. If width is out-of-bounds, raise an error and return 0.
  * @param value The value containing the two's complement number.
- * @param width Number of bits to read from value.
+ * @param width Number of bits to read from value. Values may range from 1-32.
  */
 int32_t sign_extend(uint32_t value, int width);
 
