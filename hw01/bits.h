@@ -2,7 +2,6 @@
 #define HW_BITS_H
 
 #include <stdint.h>
-#include <stdio.h>
 
 /**
  * Prints a number (specified by width) of the lowest bits of a given integer.

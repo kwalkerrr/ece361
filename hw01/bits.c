@@ -1,4 +1,5 @@
 #include "bits.h"
+#include <stdio.h>
 
 void print_binary(uint32_t x, int width) {
     if (width < 1 || width > 32) {
