@@ -1,14 +1,26 @@
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra
 
+OBJS = bits.o status.o
+TEST_OBJS = tests/test_bits.o
 TEST_BIN = tests/test_bits
 
-.PHONY: test clean
+.PHONY: all test clean
 
-test: $(TEST_BIN)
+all: $(OBJS) $(TEST_BIN)
 
-$(TEST_BIN): bits.c bits.h tests/test_bits.c
-	$(CC) $(CFLAGS) -o $@ bits.c tests/test_bits.c
+test: all
+	./$(TEST_BIN)
+
+$(TEST_BIN): bits.o $(TEST_OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+bits.o: bits.h
+status.o: status.h bits.h
+tests/test_bits.o: bits.h
 
 clean:
-	rm -f $(TEST_BIN)
+	rm -f $(OBJS) $(TEST_OBJS) $(TEST_BIN)
