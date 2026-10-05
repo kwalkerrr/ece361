@@ -4,22 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define STATUS_HEAT_POS 0
-#define STATUS_HEAT_WIDTH 1
-#define STATUS_COOL_POS 1
-#define STATUS_COOL_WIDTH 1
-#define STATUS_FAN_POS 2
-#define STATUS_FAN_WIDTH 1
-#define STATUS_FAULT_POS 3
-#define STATUS_FAULT_WIDTH 1
-#define STATUS_MODE_POS 4
-#define STATUS_MODE_WIDTH 3
-#define STATUS_RESERVED_POS 7
-#define STATUS_RESERVED_WIDTH 1
-#define STATUS_SETPOINT_POS 8
-#define STATUS_SETPOINT_WIDTH 8
-#define STATUS_MAX_MODE 4
-
 typedef struct {
     bool heat;
     bool cool;
