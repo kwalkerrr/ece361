@@ -26,12 +26,15 @@ status_t status_unpack(uint16_t word) {
     s.fault = get_field(word, STATUS_FAULT_POS, STATUS_FAULT_WIDTH);
     s.mode = get_field(word, STATUS_MODE_POS, STATUS_MODE_WIDTH);
     if (s.mode > STATUS_MAX_MODE) {
-        fprintf(stderr, "status_unpack: word has invalid MODE field\n");
+        s.mode = 0;
+        fprintf(stderr, "status_unpack: word has invalid MODE field; setting "
+            "mode to 0 instead\n");
     }
     s.reserved = get_field(word, STATUS_RESERVED_POS, STATUS_RESERVED_WIDTH);
     if (s.reserved) {
+        s.reserved = false;
         fprintf(stderr, "status_unpack: reserved bit of status word was not "
-            "0\n");
+            "0; force-setting reserved to false anyway\n");
     }
     s.setpoint = sign_extend(get_field(word, STATUS_SETPOINT_POS,
         STATUS_SETPOINT_WIDTH), STATUS_SETPOINT_WIDTH);
