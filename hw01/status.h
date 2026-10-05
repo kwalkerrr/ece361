@@ -18,6 +18,8 @@ typedef struct {
  * Gives a status_t struct based on a 16-bit thermostat status word.
  * The following is a description of how the bits in the status word correspond
  * to the members in the status_t struct (format is "bit(s): member (desc)").
+ * Invalid values from word for mode and reserved will result an error being
+ * raised and a 0/false being returned for their respective members.
  *
  * - 0: heat (heater on)
  * 
