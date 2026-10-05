@@ -67,3 +67,22 @@ uint32_t set_field(uint32_t word, int pos, int width, uint32_t value) {
     
     return word;
 }
+
+int32_t sign_extend(uint32_t value, int width) {
+    if (width < 1 || width > 32) {
+        fprintf(stderr, "sign_extend: width %d is out of range (1-32)\n",
+            width);
+        return 0;
+    }
+
+    if (width == 32) {
+        return (int32_t)value; // cast value as int32_t
+    }
+
+    uint32_t mask = (UINT32_C(1) << width) - 1;
+    value &= mask;
+    if ((value >> (width - 1)) & 1u) { // check sign bit for selection
+        value |= ~mask;
+    }
+    return (int32_t)value;
+}
