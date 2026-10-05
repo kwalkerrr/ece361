@@ -1,2 +1,3 @@
 /tests/test_bits
+/tests/test_status
 *.o
