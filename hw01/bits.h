@@ -50,6 +50,7 @@ uint32_t set_field(uint32_t word, int pos, int width, uint32_t value);
  * int32_t. If width is out-of-bounds, raise an error and return 0.
  * @param value The value containing the two's complement number.
  * @param width Number of bits to read from value. Values may range from 1-32.
+ * @return The signed int32_t form of the specified bits of value.
  */
 int32_t sign_extend(uint32_t value, int width);
 
