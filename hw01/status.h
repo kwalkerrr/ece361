@@ -18,6 +18,7 @@
 #define STATUS_RESERVED_WIDTH 1
 #define STATUS_SETPOINT_POS 8
 #define STATUS_SETPOINT_WIDTH 8
+#define STATUS_MAX_MODE 4
 
 typedef struct {
     bool heat;
