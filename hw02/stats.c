@@ -28,3 +28,24 @@ float stats_mean(const float data[], int len) {
     }
     return sum / len;
 }
+
+stats_run_t stats_threshold_run(const float data[], int len, float threshold) {
+    int run = 0, start = 0;
+    stats_run_t best_info;
+    best_info.best = 0;
+    best_info.best_start = -1;
+    for (int i = 0; i < len; i++) {
+        if (data[i] > threshold) {
+            if (run == 0)
+                start = i;
+            run++;
+            if (run > best_info.best) {
+                best_info.best = run;
+                best_info.best_start = start;
+            }
+        } else {
+            run = 0;
+        }
+    }
+    return best_info;
+}
