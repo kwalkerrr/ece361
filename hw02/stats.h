@@ -24,4 +24,12 @@ float stats_max(const float data[], int len);
  */
 float stats_min(const float data[], int len);
 
+/**
+ * Finds the mean value of an array of floats.
+ * @param data The array of floats to compute with.
+ * @param len The number of elements in the array. Must be >= 1.
+ * @return The mean value of data.
+ */
+float stats_mean(const float data[], int len);
+
 #endif

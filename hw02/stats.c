@@ -20,3 +20,11 @@ float stats_min(const float data[], int len) {
     }
     return min;
 }
+
+float stats_mean(const float data[], int len) {
+    float sum = 0.0f;
+    for (int i = 0; i < len; i++) {
+        sum += data[i];
+    }
+    return sum / len;
+}
