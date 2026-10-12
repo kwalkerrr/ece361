@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=c11 -Wall -Wextra
+CFLAGS = -std=c11 -Wall -Wextra -Wshadow -fsanitize=address
 
 OBJS = bits.o status.o
 TEST_OBJS = tests/test_bits.o tests/test_status.o
