@@ -1,12 +1,12 @@
 #ifndef HW_READING_H
 #define HW_READING_H
 
+#include <stdint.h>
+
 typedef struct {
     int count;
     int skipped;
 } reading_data_t;
-
-#include <stdint.h>
 
 /**
  * Reads data from stdin given in the format "<tick> <temperature> <humidity>".
