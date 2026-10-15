@@ -1,3 +1,4 @@
 /readings
+/readings.c
 /tests/test_stats
 *.o
