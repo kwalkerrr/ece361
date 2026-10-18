@@ -2,6 +2,15 @@
 #include <stdio.h>
 
 void swap_float(float *a, float *b) {
+    if (a == NULL) {
+        fprintf(stderr, "swap_float: a is a NULL pointer\n");
+        return;
+    }
+    else if (b == NULL) {
+        fprintf(stderr, "swap_float: b is a NULL pointer\n");
+        return;
+    }
+
     float t = *a;
     *a = *b;
     *b = t;
