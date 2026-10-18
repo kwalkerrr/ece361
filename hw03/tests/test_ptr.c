@@ -31,6 +31,34 @@ static void check_minmax(const char *desc, const float *a, int n,
     check_float(label, exp_max, max);
 }
 
+static void describe_ptr(char *buf, size_t size, const float *a, int n,
+    const float *p) {
+    if (p == NULL) {
+        snprintf(buf, size, "NULL");
+        return;
+    }
+    for (int i = 0; i < n; i++) {
+        if (&a[i] == p) {
+            snprintf(buf, size, "a[%d]", i);
+            return;
+        }
+    }
+    snprintf(buf, size, "outside a");
+}
+
+static void check_find_above(const char *desc, const float *a, int n,
+    float threshold, int exp_index) {
+    char label[64], exp_str[16], act_str[16];
+    const float *expected = exp_index < 0 ? NULL : &a[exp_index];
+    const float *actual = find_above(a, n, threshold);
+
+    snprintf(label, sizeof label, "find_above %s", desc);
+    describe_ptr(exp_str, sizeof exp_str, a, n, expected);
+    describe_ptr(act_str, sizeof act_str, a, n, actual);
+    report(expected == actual);
+    printf("%-40s expected %9s, actual %9s\n", label, exp_str, act_str);
+}
+
 static void test_swap(void) {
     printf("\n=== test_swap ===\n");
     float x = 2.2f, y = 3.3f;
@@ -69,9 +97,23 @@ static void test_minmax(void) {
     check_minmax("(NULL pointer, error)", a8, ARRAY_LEN, 1.0f, 10.0f);
 }
 
+static void test_find_above(void) {
+    printf("\n=== test_find_above ===\n");
+
+    float a1[ARRAY_LEN] = {1.3f, 9.2f, 4.0f, 12.5f, 3.5f};
+    check_find_above("(two matches)", a1, ARRAY_LEN, 5.0f, 1);
+
+    float a2[ARRAY_LEN] = {1.3f, -7.1f, 4.0f, 2.2f, 3.5f};
+    check_find_above("(no matches)", a2, ARRAY_LEN, 5.0f, -1);
+
+    float a3[ARRAY_LEN] = {1.3f, 5.0f, 4.0f, 6.1f, 3.5f};
+    check_find_above("(value equal to threshold)", a3, ARRAY_LEN, 5.0f, 3);
+}
+
 int main(void) {
     test_swap();
     test_minmax();
+    test_find_above();
 
     printf("\n%d of %d test(s) passed, %d failed\n", tests - failures, tests,
         failures);
