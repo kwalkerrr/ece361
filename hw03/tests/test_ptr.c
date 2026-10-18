@@ -18,11 +18,11 @@ static void check_float(const char *desc, float expected, float actual) {
 }
 
 static void test_swap(void) {
-    printf("\n=== swap_float ===\n");
+    printf("\n=== test_swap ===\n");
     float x = 2.2f, y = 3.3f;
     swap_float(&x, &y);
-    check_float("test_swap, x", 3.3f, x);
-    check_float("test_swap, y", 2.2f, y);
+    check_float("swap_float, x", 3.3f, x);
+    check_float("swap_float, y", 2.2f, y);
 }
 
 int main(void) {
