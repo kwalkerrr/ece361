@@ -27,7 +27,7 @@ int minmax(const float *a, int n, float *min, float *max) {
 
     *min = *a;
     *max = *a;
-    for (float *p = a + 1; p < a + n; p++) {
+    for (const float *p = a + 1; p < a + n; p++) {
         if (*p < *min)
             *min = *p;
         else if (*p > *max)
