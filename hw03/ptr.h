@@ -13,10 +13,10 @@ void swap_float(float *a, float *b);
  * Stores the smallest and largest value of array a in *min and *max
  * respectively.
  * @param a The array to read.
- * @param n The length of the array.
+ * @param n The length of the array. Must be >= 1.
  * @param min Address in which to store minimum value.
  * @param max Address in which to store maximum value.
- * @return -1 if n <1 or any pointer is NULL, 0 otherwise.
+ * @return -1 if n < 1 or any pointer is NULL, 0 otherwise.
  */
 int minmax(const float *a, int n, float *min, float *max);
 
