@@ -59,6 +59,36 @@ static void check_find_above(const char *desc, const float *a, int n,
     printf("%-40s expected %9s, actual %9s\n", label, exp_str, act_str);
 }
 
+static int floats_equal(const float *a, const float *b, int n) {
+    for (int i = 0; i < n; i++) {
+        if (a[i] != b[i])
+            return 0;
+    }
+    return 1;
+}
+
+static void print_floats(const float *a, int n) {
+    printf("{");
+    for (int i = 0; i < n; i++) {
+        printf("%s%.1f", i > 0 ? ", " : "", a[i]);
+    }
+    printf("}");
+}
+
+static void check_reverse(const char *desc, float *a, int len, int n,
+    const float *expected) {
+    char label[64];
+    reverse(a, n);
+
+    snprintf(label, sizeof label, "reverse %s", desc);
+    report(floats_equal(expected, a, len));
+    printf("%-40s expected ", label);
+    print_floats(expected, len);
+    printf(", actual ");
+    print_floats(a, len);
+    printf("\n");
+}
+
 static void test_swap(void) {
     printf("\n=== test_swap ===\n");
     float x = 2.2f, y = 3.3f;
@@ -114,10 +144,39 @@ static void test_find_above(void) {
     check_find_above("(NULL pointer, error)", a4, ARRAY_LEN, 5.0f, -1);
 }
 
+static void test_reverse(void) {
+    printf("\n=== test_reverse ===\n");
+
+    float a1[ARRAY_LEN] = {1.3f, 9.2f, 4.0f, 12.5f, 3.5f};
+    float e1[ARRAY_LEN] = {3.5f, 12.5f, 4.0f, 9.2f, 1.3f};
+    check_reverse("(odd length)", a1, ARRAY_LEN, ARRAY_LEN, e1);
+
+    float a2[4] = {1.3f, 9.2f, 4.0f, 12.5f};
+    float e2[4] = {12.5f, 4.0f, 9.2f, 1.3f};
+    check_reverse("(even length)", a2, 4, 4, e2);
+
+    float a3[2] = {1.3f, 9.2f};
+    float e3[2] = {9.2f, 1.3f};
+    check_reverse("(two values)", a3, 2, 2, e3);
+
+    float a4[1] = {6.2f};
+    float e4[1] = {6.2f};
+    check_reverse("(one value, unchanged)", a4, 1, 1, e4);
+
+    float a5[ARRAY_LEN] = {1.3f, 9.2f, 4.0f, 12.5f, 3.5f};
+    float e5[ARRAY_LEN] = {1.3f, 9.2f, 4.0f, 12.5f, 3.5f};
+    check_reverse("(n = 0, unchanged)", a5, ARRAY_LEN, 0, e5);
+
+    reverse(NULL, ARRAY_LEN);
+    report(1);
+    printf("%-40s no crash\n", "reverse (NULL pointer, error)");
+}
+
 int main(void) {
     test_swap();
     test_minmax();
     test_find_above();
+    test_reverse();
 
     printf("\n%d of %d test(s) passed, %d failed\n", tests - failures, tests,
         failures);
