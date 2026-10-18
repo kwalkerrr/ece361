@@ -34,7 +34,7 @@ const float *find_above(const float *a, int n, float threshold);
 /**
  * Reverses a[0...n-1] in place. Does nothing but throw an error if a is NULL or
  * n < 2.
- * @param a The array to reverse.
+ * @param a The array to reverse. Must be >= 2.
  * @param n The length of the array.
  */
 void reverse(float *a, int n);
