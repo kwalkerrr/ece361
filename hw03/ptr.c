@@ -36,3 +36,20 @@ int minmax(const float *a, int n, float *min, float *max) {
 
     return 0;
 }
+
+const float *find_above(const float *a, int n, float threshold) {
+    if (n < 1) {
+        fprintf(stderr, "find_above: n of %d is < 1\n", n);
+        return NULL;
+    }
+    else if (a == NULL) {
+        fprintf(stderr, "find_above: a is a NULL pointer\n");
+        return NULL;
+    }
+
+    for (const float *p = a; p < a + n; p++) {
+        if (*p > threshold)
+            return p;
+    }
+    return NULL;
+}
