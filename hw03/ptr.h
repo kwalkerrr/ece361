@@ -11,7 +11,7 @@ void swap_float(float *a, float *b);
 
 /**
  * Stores the smallest and largest value of array a in *min and *max
- * respectively.
+ * respectively. Throws an error if n is out of bounds or any pointer is NULL.
  * @param a The array to read.
  * @param n The length of the array. Must be >= 1.
  * @param min Address in which to store minimum value.
@@ -22,7 +22,7 @@ int minmax(const float *a, int n, float *min, float *max);
 
 /**
  * Finds the first value in array a above threshold, then returns a pointer to
- * that value.
+ * that value. Throws an error if n is out of bounds or a is a NULL pointer.
  * @param a The array to read.
  * @param n The length of the array. Must be >= 1.
  * @param threshold The value against which array values will be compared.
