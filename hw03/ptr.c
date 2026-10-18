@@ -53,3 +53,18 @@ const float *find_above(const float *a, int n, float threshold) {
     }
     return NULL;
 }
+
+void reverse(float *a, int n) {
+    if (n < 2) {
+        fprintf(stderr, "reverse: n of %d is < 2 and can't be reversed \n", n);
+        return;
+    }
+    else if (a == NULL) {
+        fprintf(stderr, "reverse: a is a NULL pointer\n");
+        return;
+    }
+
+    for (float *lo = a, *hi = a + n - 1; lo < hi; lo++, hi--) {
+        swap_float(lo, hi);
+    }
+}
