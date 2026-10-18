@@ -108,6 +108,10 @@ static void test_find_above(void) {
 
     float a3[ARRAY_LEN] = {1.3f, 5.0f, 4.0f, 6.1f, 3.5f};
     check_find_above("(value equal to threshold)", a3, ARRAY_LEN, 5.0f, 3);
+    check_find_above("(n = 0, error)", a3, 0, 5.0f, -1);
+
+    float *a4 = NULL;
+    check_find_above("(NULL pointer, error)", a4, ARRAY_LEN, 5.0f, -1);
 }
 
 int main(void) {
