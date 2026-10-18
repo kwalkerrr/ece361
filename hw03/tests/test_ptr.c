@@ -1,6 +1,8 @@
 #include "../ptr.h"
 #include <stdio.h>
 
+#define ARRAY_LEN 5
+
 static int tests = 0;
 static int failures = 0;
 
@@ -17,16 +19,59 @@ static void check_float(const char *desc, float expected, float actual) {
     printf("%-40s expected %9.3f, actual %9.3f\n", desc, expected, actual);
 }
 
+static void check_minmax(const char *desc, const float *a, int n,
+    float exp_min, float exp_max) {
+    char label[64];
+    float min = 1.0f, max = 10.0f;
+    minmax(a, n, &min, &max);
+
+    snprintf(label, sizeof label, "minmax %s, min", desc);
+    check_float(label, exp_min, min);
+    snprintf(label, sizeof label, "minmax %s, max", desc);
+    check_float(label, exp_max, max);
+}
+
 static void test_swap(void) {
     printf("\n=== test_swap ===\n");
     float x = 2.2f, y = 3.3f;
+    
     swap_float(&x, &y);
     check_float("swap_float, x", 3.3f, x);
     check_float("swap_float, y", 2.2f, y);
 }
 
+static void test_minmax(void) {
+    printf("\n=== test_minmax ===\n");
+
+    float a1[ARRAY_LEN] = {1.3f, -7.1f, 8.4f, 10.3f, 3.5f};
+    check_minmax("(min & max in middle)", a1, ARRAY_LEN, -7.1f, 10.3f);
+
+    float a2[ARRAY_LEN] = {-7.1f, 1.3f, 8.4f, 10.3f, 3.5f};
+    check_minmax("(min first)", a2, ARRAY_LEN, -7.1f, 10.3f);
+
+    float a3[ARRAY_LEN] = {1.3f, 3.5f, 8.4f, 10.3f, -7.1f};
+    check_minmax("(min last)", a3, ARRAY_LEN, -7.1f, 10.3f);
+
+    float a4[ARRAY_LEN] = {10.3f, -7.1f, 8.4f, 1.3f, 3.5f};
+    check_minmax("(max first)", a4, ARRAY_LEN, -7.1f, 10.3f);
+
+    float a5[ARRAY_LEN] = {1.3f, -7.1f, 8.4f, 3.5f, 10.3f};
+    check_minmax("(max last)", a5, ARRAY_LEN, -7.1f, 10.3f);
+
+    float a6[ARRAY_LEN] = {8.1f, 8.1f, 8.1f, 8.1f, 8.1f};
+    check_minmax("(repeated values)", a6, ARRAY_LEN, 8.1f, 8.1f);
+
+    float a7[1] = {6.2f};
+    check_minmax("(one value)", a7, 1, 6.2f, 6.2f);
+    check_minmax("(n = 0, error)", a7, 0, 1.0f, 10.0f);
+
+    float *a8 = NULL;
+    check_minmax("(NULL pointer, error)", a8, ARRAY_LEN, 1.0f, 10.0f);
+}
+
 int main(void) {
     test_swap();
+    test_minmax();
 
     printf("\n%d of %d test(s) passed, %d failed\n", tests - failures, tests,
         failures);
