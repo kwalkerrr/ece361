@@ -32,9 +32,10 @@ int minmax(const float *a, int n, float *min, float *max);
 const float *find_above(const float *a, int n, float threshold);
 
 /**
- * Reverses a[0...n-1] in place. Does nothing if a is NULL or n < 2.
+ * Reverses a[0...n-1] in place. Does nothing but throw an error if a is NULL or
+ * n < 2.
  * @param a The array to reverse.
- * @param The length of the array.
+ * @param n The length of the array.
  */
 void reverse(float *a, int n);
 
