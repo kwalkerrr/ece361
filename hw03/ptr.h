@@ -24,10 +24,10 @@ int minmax(const float *a, int n, float *min, float *max);
  * Finds the first value in array a above threshold, then returns a pointer to
  * that value.
  * @param a The array to read.
- * @param n The length of the array.
+ * @param n The length of the array. Must be >= 1.
  * @param threshold The value against which array values will be compared.
- * @return A NULL pointer if there is no value of a above threshold. Otherwise,
- * a pointer to the first value of a above threshold.
+ * @return A NULL pointer if there is no value of a above threshold or a is a
+ * NULL pointer. Otherwise, a pointer to the first value of a above threshold.
  */
 const float *find_above(const float *a, int n, float threshold);
 
