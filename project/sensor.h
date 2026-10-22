@@ -4,3 +4,8 @@ measurement includes a timestamp (Unix-style), a temperature reading (degrees
 Celsius), and a humidity reading (%RH). The latter two readings are rounded to
 the nearest 0.1. This module does not print anything.
 */
+
+#ifndef PROJ_SENSOR_H
+#define PROJ_SENSOR_H
+
+#endif
