@@ -65,7 +65,7 @@ const float *find_above(const float *a, int n, float threshold) {
 
 void reverse(float *a, int n) {
     if (n < 2) {
-        fprintf(stderr, "reverse: n of %d is < 2 and can't be reversed \n", n);
+        fprintf(stderr, "reverse: n of %d is < 2 and can't be reversed\n", n);
         return;
     }
     else if (a == NULL) {
