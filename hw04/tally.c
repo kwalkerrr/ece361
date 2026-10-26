@@ -14,3 +14,14 @@ struct tally {
 
 static struct tally tallies[TALLY_MAX];
 static bool used[TALLY_MAX]; // used[i] is true while tallies[i] is handed out
+
+tally_t *tally_create(void) {
+    for (int i = 0; i < TALLY_MAX; i++) {
+        if (!used[i]) {
+            used[i] = true;
+            tallies[i].size = 0; // forget names left over from a destroyed tally
+            return &tallies[i];
+        }
+    }
+    return NULL;
+}
