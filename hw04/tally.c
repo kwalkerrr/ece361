@@ -46,9 +46,11 @@ static int find(const tally_t *t, const char *name, bool *found) {
 static void insert(tally_t *t, int i, const char *name) {
     // No need to worry about bounds as long as you check them before calling
     // this helper function.
-    // Shifts up ith entry up to i+1 and so on.
-    memmove(&t->entries[i + 1], &t->entries[i],
-            (size_t)(t->size - i) * sizeof t->entries[0]);
+    // Shifts up ith entry up to i+1 and so on, starting from the end so no
+    // entry is overwritten before it has been copied.
+    for (int j = t->size; j > i; j--) {
+        t->entries[j] = t->entries[j - 1];
+    }
     // valid_name should be called before this function to ensure safety of
     // strcpy.
     strcpy(t->entries[i].name, name);
