@@ -117,3 +117,15 @@ int tally_count(const tally_t *t, const char *name) {
     int i = find(t, name, &found);
     return found ? t->entries[i].count : 0;
 }
+
+int tally_size(const tally_t *t) {
+    if (t == NULL) {
+        fprintf(stderr, "tally_size: t must not be NULL\n");
+        return 0;
+    }
+    if (!in_use(t)) {
+        fprintf(stderr, "tally_size: tally is not in use\n");
+        return 0;
+    }
+    return t->size;
+}
