@@ -15,10 +15,13 @@ zoo
 animal
 example
 DEADBEEF
+lion
+lion
 lorem
 ipsum
 sit
 amet
+zebra
 flowers
 deadbeef
 Deadbeef
