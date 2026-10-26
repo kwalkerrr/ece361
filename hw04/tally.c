@@ -25,3 +25,12 @@ tally_t *tally_create(void) {
     }
     return NULL;
 }
+
+void tally_destroy(tally_t *t) {
+    for (int i = 0; i < TALLY_MAX; i++) {
+        if (t == &tallies[i]) {
+            used[i] = false;
+            return;
+        }
+    }
+}
