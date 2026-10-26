@@ -18,43 +18,50 @@ tally_t *tally_create(void);
 
 /**
  * Frees up the specified tally so that tally_create can hand it out again. Note
- * that this does not deallocate any memory.
+ * that this does not deallocate any memory, and callers should set the pointer
+ * to NULL immediately after this function call.
  * @param t A pointer to the tally to free up. If NULL, nothing happens.
  */
 void tally_destroy(tally_t *t);
 
 /**
  * Counts one more occurrence of name in the specified tally, then returns its
- * new count.
+ * new count. Prints to stderr if t or name is NULL, name is empty or longer
+ * than TALLY_LEN, name is new and the tally is full, or the tally pointed to by
+ * t is not in use (e.g. it has been destroyed).
  * @param t A pointer to the tally to modify.
  * @param name The name to add an occurrence of.
- * @return -1 if t or name is NULL, name is empty or longer than TALLY_LEN, or
- * name is new and the tally is full. Otherwise, the name's new count in the
- * tally.
+ * @return -1 if t or name is NULL, name is empty or longer than TALLY_LEN, name
+ * is new and the tally is full, or the tally pointed to by t is not in use
+ * (e.g. it has been destroyed). Otherwise, the name's new count in the tally.
  */
 int tally_add(tally_t *t, const char *name);
 
 
 /**
- * Counts the occurrences of a name.
+ * Counts the occurrences of a name. Prints to stderr if t or name is NULL or
+ * the tally pointed to by t is not in use (e.g. it has been destroyed).
  * @param t A pointer to the tally to read from.
  * @param name The name to count instances of.
- * @return 0 if name is not in the tally or if t or name is NULL. Otherwise, the
+ * @return 0 if name is not in the tally, t or name is NULL, or the tally
+ * pointed to by t is not in use (e.g. it has been destroyed). Otherwise, the
  * number of occurrences of name in the tally.
  */
 int tally_count(const tally_t *t, const char *name);
 
 /**
- * Counts how many different names a tally holds.
+ * Counts how many different names a tally holds. Prints to stderr if t is NULL
+ * or the tally pointed to by t is not in use (e.g. it has been destroyed).
  * @param t A pointer to the tally to read from.
- * @return 0 if t is NULL. Otherwise, the number of different names in the
- * tally.
+ * @return 0 if t is NULL or the tally pointed to by t is not in use (e.g. it
+ * has been destroyed). Otherwise, the number of different names in the tally.
  */
 int tally_size(const tally_t *t);
 
 /**
  * Prints out a line for each name in a tally in the format "<name> <count>"
- * alphabetically by name.
+ * alphabetically by name. Returns early and prints to stderr if t is NULL or
+ * the tally pointed to by t is not in use (e.g. it has been destroyed).
  * @param t A pointer to the tally to print out.
  * @param out The file stream to print to.
  */
