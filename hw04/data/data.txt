@@ -1,0 +1,25 @@
+# max length (15)
+max_length_name
+# one over max length (16)
+max_length_names
+# empty lines
+
+
+# one character
+f
+# fill tally
+zebra
+cheetah
+lion
+zoo
+animal
+example
+DEADBEEF
+lorem
+ipsum
+sit
+amet
+flowers
+deadbeef
+Deadbeef
+# comment at the end
