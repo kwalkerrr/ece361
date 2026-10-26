@@ -103,3 +103,17 @@ int tally_add(tally_t *t, const char *name) {
     }
     return ++t->entries[i].count;
 }
+
+int tally_count(const tally_t *t, const char *name) {
+    if (t == NULL || name == NULL) {
+        fprintf(stderr, "tally_count: t and name must not be NULL\n");
+        return 0;
+    }
+    if (!in_use(t)) {
+        fprintf(stderr, "tally_count: tally is not in use\n");
+        return 0;
+    }
+    bool found;
+    int i = find(t, name, &found);
+    return found ? t->entries[i].count : 0;
+}
