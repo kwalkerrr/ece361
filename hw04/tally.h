@@ -16,7 +16,6 @@ typedef struct tally tally_t;
  */
 tally_t *tally_create(void);
 
-
 /**
  * Frees up the specified tally so that tally_create can hand it out again. Note
  * that this does not deallocate any memory.
