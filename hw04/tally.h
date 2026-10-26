@@ -25,10 +25,10 @@ tally_t *tally_create(void);
 void tally_destroy(tally_t *t);
 
 /**
- * Counts one more occurrence of name in the specified tally, then returns its
- * new count. Prints to stderr if t or name is NULL, name is empty or longer
- * than TALLY_LEN, name is new and the tally is full, or the tally pointed to by
- * t is not in use (e.g. it has been destroyed).
+ * Adds one more occurrence of name in the specified tally, then returns its new
+ * count. Prints to stderr if t or name is NULL, name is empty or longer than
+ * TALLY_LEN, name is new and the tally is full, or the tally pointed to by t is
+ * not in use (e.g. it has been destroyed).
  * @param t A pointer to the tally to modify.
  * @param name The name to add an occurrence of.
  * @return -1 if t or name is NULL, name is empty or longer than TALLY_LEN, name
