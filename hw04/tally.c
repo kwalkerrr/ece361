@@ -129,3 +129,18 @@ int tally_size(const tally_t *t) {
     }
     return t->size;
 }
+
+void tally_print(const tally_t *t, FILE *out) {
+    if (t == NULL || out == NULL) {
+        fprintf(stderr, "tally_print: t and out must not be NULL\n");
+        return;
+    }
+    if (!in_use(t)) {
+        fprintf(stderr, "tally_print: tally is not in use\n");
+        return;
+    }
+    // Entries are kept sorted by insert, so they print alphabetically as is.
+    for (int i = 0; i < t->size; i++) {
+        fprintf(out, "%s %d\n", t->entries[i].name, t->entries[i].count);
+    }
+}
