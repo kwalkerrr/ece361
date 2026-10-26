@@ -160,3 +160,22 @@ alphabetically by name.
 
 **Errors:** If `t` is NULL or not in use, an error is printed to `stderr` and
 the function returns without printing anything to `out`.
+
+## The Importance of Opaque Structs
+Attempting to compile a file that only includes tally.h (and not tally.c)
+but also attempts an operation such as `t->size = 1` results in the following
+compilation error:
+
+```
+error: invalid use of incomplete typedef ‘tally_t’ {aka ‘struct tally’}
+```
+
+This error occurs because the compiler knows that there is a data type called
+tally_t and that it is a struct, but since tally_t is opaque, it has no
+information about the struct's fields. Therefore, it has no way to modify its
+fields; it doesn't even know how much memory the field takes up, so it couldn't
+possibly make the assignment. The reason opaque data types are useful is that
+callers can't accidentally (or intentionally) assign an invalid value to a
+struct's field. All interactions with the struct's fields happen through
+functions, allowing the author of the data type to perform any data validation
+they wish.
