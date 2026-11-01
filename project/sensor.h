@@ -9,6 +9,13 @@ the nearest 0.1. This module does not print anything.
 #define PROJ_SENSOR_H
 
 #include <stdint.h>
+#include <time.h>
+
+typedef struct {
+    time_t timestamp;
+    float temperature_celsius;
+    float relative_humidity_percent;
+} reading_t;
 
 /**
  * Reads the temperature and humidity registers of iom361, converts them using
