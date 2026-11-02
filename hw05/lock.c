@@ -1,4 +1,5 @@
 #include "lock.h"
+#include <stdio.h>
 
 const transition_t lock_table[N_STATES][N_EVENTS] = {
     [LOCKED] = {
@@ -26,3 +27,21 @@ const transition_t lock_table[N_STATES][N_EVENTS] = {
         [E_TIMEOUT] = {LOCKED, A_LOCK}
     }
 };
+
+state_t lock_step(state_t s, event_t e, action_t *action) {
+    if (NULL == action) {
+        fprintf(stderr, "lock_step: action is NULL\n");
+        return s;
+    }
+    else if (s < 0 || s >= N_STATES) {
+        fprintf(stderr, "lock_step: s of %d is out of bounds\n", (int)s);
+        return s;
+    }
+    else if (e < 0 || e >= N_EVENTS) {
+        fprintf(stderr, "lock_step: e of %d is out of bounds\n", (int)e);
+        return s;
+    }
+
+    *action = lock_table[s][e].action;
+    return lock_table[s][e].next;
+}
