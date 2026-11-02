@@ -32,6 +32,28 @@ const transition_t lock_table[N_STATES][N_EVENTS] = {
     }
 };
 
+static const char *const state_names[N_STATES] = {
+    [LOCKED] = "LOCKED",
+    [GOT1] = "GOT1",
+    [GOT2] = "GOT2",
+    [OPEN] = "OPEN"
+};
+
+static const char *const event_names[N_EVENTS] = {
+    [E_RIGHT] = "RIGHT",
+    [E_WRONG] = "WRONG",
+    [E_CLOSE] = "CLOSE",
+    [E_TIMEOUT] = "TIMEOUT"
+};
+
+static const char *const action_names[N_ACTIONS] = {
+    [A_UNDEFINED] = "UNDEFINED",
+    [A_NONE] = "NONE",
+    [A_UNLOCK] = "UNLOCK",
+    [A_LOCK] = "LOCK",
+    [A_BEEP] = "BEEP"
+};
+
 state_t lock_step(state_t s, event_t e, action_t *action) {
     if (NULL == action) {
         fprintf(stderr, "lock_step: action is NULL\n");
