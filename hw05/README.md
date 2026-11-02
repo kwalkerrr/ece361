@@ -96,6 +96,10 @@ values are 0 up to but not including the count.
 | GOT2   | OPEN, A_UNLOCK   | LOCKED, A_BEEP   | GOT2, A_NONE     | LOCKED, A_LOCK  |
 | OPEN   | OPEN, A_NONE     | OPEN, A_NONE     | LOCKED, A_LOCK   | LOCKED, A_LOCK  |
 
+### State Diagram
+
+![State diagram of the lock FSM](state_diagram.jpg)
+
 ### `lock_step`
 
 ```c
