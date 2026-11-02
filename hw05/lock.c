@@ -95,3 +95,24 @@ int lock_event(state_t s, char c) {
     else
         return -1;
 }
+
+const char *state_name(state_t s) {
+    if (s < 0 || s >= N_STATES)
+        return "?";
+
+    return state_names[s];
+}
+
+const char *event_name(event_t e) {
+    if (e < 0 || e >= N_EVENTS)
+        return "?";
+
+    return event_names[e];
+}
+
+const char *action_name(action_t a) {
+    if (a < 0 || a >= N_ACTIONS)
+        return "?";
+
+    return action_names[a];
+}
