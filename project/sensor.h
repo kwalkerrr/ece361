@@ -1,10 +1,3 @@
-/*
-This module handles all of the reading from the sensors. Each reading_t
-measurement includes a timestamp (Unix-style), a temperature reading (degrees
-Celsius), and a humidity reading (%RH). The latter two readings are rounded to
-the nearest 0.1. This module does not print anything.
-*/
-
 #ifndef PROJ_SENSOR_H
 #define PROJ_SENSOR_H
 
@@ -20,18 +13,16 @@ typedef struct {
 /**
  * Reads the temperature and humidity registers of iom361, converts them using
  * the relevant formulas, rounds them to the nearest 0.1, and then stores them
- * in *temperature_celsius and *relative_humidity_percent. On a failed register
- * read, none of the input values are changed, and a message is printed to
- * stderr.
+ * in a `reading_t` struct in the `temperature_celsius` and
+ * `relative_humidity_percent` fields. On a failed register read, none of the
+ * input values are changed, and a message is printed to `stderr`.
  * @param base The base address of the I/O register block.
- * @param temperature_celsius The register's converted temperature in degrees
- * Celsius.
- * @param relative_humidity_percent The register's converted relative humidity
- * percentage.
+ * @param now The current timestamp.
+ * @param reading The address of the `reading_t` struct in which to store the
+ * temperature, relative humidity, and time values.
  * @return 0 if the execution is successful. Otherwise, the return code of a
  * failed iom361_readReg call.
  */
-int sensor_read(uint32_t *base, float *temperature_celsius, float 
-    *relative_humidity_percent);
+int sensor_read(uint32_t *base, time_t now, reading_t *reading);
 
 #endif

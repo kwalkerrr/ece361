@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 #define DECIMAL_PLACES 1
+#define RAW_READING_BITS 20
 
 static float sensor_round(float number) {
     float rounded_number;
@@ -23,8 +24,12 @@ static float sensor_convert_humidity(uint32_t relative_humidity_reading) {
     return relative_humidity_reading / pow(2.0f, 20.0f) * 100.0f;
 }
 
-int sensor_read(uint32_t *base, float *temperature_celsius, float 
-    *relative_humidity_percent) {
+static uint32_t sensor_mask(uint32_t raw_reading) {
+    uint32_t mask = (UINT32_C(1) << RAW_READING_BITS) - 1;
+    return raw_reading & mask;
+}
+
+int sensor_read(uint32_t *base, time_t now, reading_t *reading) {
     int return_code;
 
     uint32_t temperature_reading = iom361_readReg(base, TEMP_REG, &return_code);
@@ -41,12 +46,17 @@ int sensor_read(uint32_t *base, float *temperature_celsius, float
         return return_code;
     }
 
-    *temperature_celsius = sensor_convert_temperature(temperature_reading);
-    *temperature_celsius = sensor_round(*temperature_celsius);
+    temperature_reading = sensor_mask(temperature_reading);
+    relative_humidity_reading = sensor_mask(relative_humidity_reading);
 
-    *relative_humidity_percent =
+    reading->temperature_celsius =
+        sensor_convert_temperature(temperature_reading);
+    reading->temperature_celsius = sensor_round(reading->temperature_celsius);
+
+    reading->relative_humidity_percent =
         sensor_convert_humidity(relative_humidity_reading);
-    *relative_humidity_percent = sensor_round(*relative_humidity_percent);\
+    reading->relative_humidity_percent =
+        sensor_round(reading->relative_humidity_percent);
 
-    return return_code;
+    return 0;
 }
