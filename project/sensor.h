@@ -24,7 +24,8 @@ typedef struct {
  * read, none of the input values are changed, and a message is printed to
  * stderr.
  * @param base The base address of the I/O register block.
- * @param temperature_celsius The register's converted temperature in degrees Celsius.
+ * @param temperature_celsius The register's converted temperature in degrees
+ * Celsius.
  * @param relative_humidity_percent The register's converted relative humidity
  * percentage.
  * @return 0 if the execution is successful. Otherwise, the return code of a
