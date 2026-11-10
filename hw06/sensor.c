@@ -58,5 +58,7 @@ int sensor_read(uint32_t *base, time_t now, reading_t *reading) {
     reading->relative_humidity_percent =
         sensor_round(reading->relative_humidity_percent);
 
+    reading->timestamp = now;
+
     return 0;
 }
