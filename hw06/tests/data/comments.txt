@@ -1,0 +1,11 @@
+# A scenario with comments and blank lines everywhere.
+
+   # an indented comment
+start 1791273600   # 2026-10-06 08:00:00 UTC
+
+# tick  temp   rh    switches
+0       21.5   40.0  0x0
+
+5       91.0   45.5  0x1   # ARM pressed
+	# a comment after a tab
+9       -10.0  99.9  0xF
