@@ -1,0 +1,6 @@
+# Starts at 23:59:55 on 28 February 2027 and runs past midnight into March.
+start 1803859195                # 2027-02-28 23:59:55 UTC
+0       5.0    80.0  0x0
+4       5.0    80.0  0x8        # switch 3 pressed at 23:59:59
+5       4.9    80.1  0x8        # held across midnight
+7       4.8    80.2  0x0
