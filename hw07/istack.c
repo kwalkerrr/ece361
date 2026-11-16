@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 struct istack {
     int *data;       /* dynamic array of values, bottom at index 0 */

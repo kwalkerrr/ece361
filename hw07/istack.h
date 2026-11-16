@@ -1,7 +1,7 @@
 #ifndef HW_ISTACK_H
 #define HW_ISTACK_H
 
-#include <stdlib.h>
+#include <stddef.h>
 #include <stdbool.h>
 
 #define ISTACK_START 8 /* room at first; doubles when full */
