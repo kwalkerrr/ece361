@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct istack {
     int *data;       /* dynamic array of values, bottom at index 0 */
@@ -136,4 +137,28 @@ size_t istack_capacity(const istack_t *s) {
     }
 
     return s->capacity;
+}
+
+int *istack_to_array(const istack_t *s, size_t *n) {
+    if (n == NULL) {
+        fprintf(stderr, "istack_to_array: n is NULL\n");
+        return NULL;
+    }
+
+    *n = 0;
+    if (istack_check_top(s, "istack_to_array") != 0) {
+        return NULL;
+    }
+
+    // count <= capacity, and capacity ints were already allocated, so this
+    // multiplication cannot overflow.
+    int *copy = malloc(s->count * sizeof *copy);
+    if (copy == NULL) {
+        fprintf(stderr, "istack_to_array: not enough memory for array\n");
+        return NULL;
+    }
+
+    memcpy(copy, s->data, s->count * sizeof *copy);
+    *n = s->count;
+    return copy;
 }
