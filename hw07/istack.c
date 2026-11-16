@@ -15,7 +15,7 @@ istack_t *istack_create(void) {
         return NULL;
     }
 
-    // This a safe malloc with any reasonable SIZE_MAX.
+    // This is a safe malloc with any reasonable SIZE_MAX.
     s->data = malloc(ISTACK_START * sizeof *s->data);
     if (s->data == NULL) {
         free(s);
