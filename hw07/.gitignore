@@ -1,0 +1,3 @@
+*.o
+/balance
+/tests/test_istack
