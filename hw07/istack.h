@@ -87,9 +87,9 @@ size_t istack_capacity(const istack_t *s);
  * in the new array. Must not be `NULL`. If `s` is `NULL`, the stack is empty,
  * or there was not enough free memory space to create a new array, `*n` will be
  * set to 0.
- * @return `NULL` if `s` is `NULL`, the stack is empty, or there was not enough
- * free memory space to create a new array. Otherwise, a pointer to the new
- * array.
+ * @return `NULL` if `s` is `NULL`, the stack is empty, there was not enough
+ * free memory space to create a new array, or `n` is `NULL`. Otherwise, a
+ * pointer to the new array.
  */
 int *istack_to_array(const istack_t *s, size_t *n);
 
