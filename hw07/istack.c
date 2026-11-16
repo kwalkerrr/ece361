@@ -108,3 +108,30 @@ int istack_peek(const istack_t *s, int *v) {
     }
     return 0;
 }
+
+size_t istack_count(const istack_t *s) {
+    if (s == NULL) {
+        fprintf(stderr, "istack_count: stack is NULL\n");
+        return 0;
+    }
+
+    return s->count;
+}
+
+bool istack_is_empty(const istack_t *s) {
+    if (s == NULL) {
+        fprintf(stderr, "istack_is_empty: stack is NULL\n");
+        return true;
+    }
+
+    return s->count == 0;
+}
+
+size_t istack_capacity(const istack_t *s) {
+    if (s == NULL) {
+        fprintf(stderr, "istack_capacity: stack is NULL\n");
+        return 0;
+    }
+
+    return s->capacity;
+}
