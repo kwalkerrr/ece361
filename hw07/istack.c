@@ -69,3 +69,42 @@ int istack_push(istack_t *s, int v) {
     s->count++;
     return 0;
 }
+
+/* Checks that `s` has a top value to read. Prints an error naming `caller` to
+ * `stderr` and returns -1 if `s` is `NULL` or empty. Otherwise, 0. */
+static int istack_check_top(const istack_t *s, const char *caller) {
+    if (s == NULL) {
+        fprintf(stderr, "%s: stack is NULL\n", caller);
+        return -1;
+    }
+
+    if (s->count == 0) {
+        fprintf(stderr, "%s: stack is empty\n", caller);
+        return -1;
+    }
+
+    return 0;
+}
+
+int istack_pop(istack_t *s, int *v) {
+    if (istack_check_top(s, "istack_pop") != 0) {
+        return -1;
+    }
+
+    s->count--;
+    if (v != NULL) {
+        *v = s->data[s->count]; // after decrement above, points to last value
+    }
+    return 0;
+}
+
+int istack_peek(const istack_t *s, int *v) {
+    if (istack_check_top(s, "istack_peek") != 0) {
+        return -1;
+    }
+
+    if (v != NULL) {
+        *v = s->data[s->count - 1];
+    }
+    return 0;
+}
