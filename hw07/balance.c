@@ -3,8 +3,12 @@
  * Prints one result line to stdout and exits with 0 if balanced, 1 if not. */
 #include "istack.h"
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#define MSG_LEN 128
+#define MSG_WIDTH 48 /* column where "exit status" starts */
 
 /* Everything the checker tracks while reading input. */
 typedef struct {
@@ -35,6 +39,20 @@ static int closer_for(int open) {
     }
 }
 
+/* Prints the printf-style message, padded to MSG_WIDTH, followed by the exit
+ * status the program is about to return. Returns `status`. */
+static int report(int status, const char *fmt, ...) {
+    char msg[MSG_LEN];
+    va_list args;
+
+    va_start(args, fmt);
+    vsnprintf(msg, sizeof msg, fmt, args);
+    va_end(args);
+
+    printf("%-*s exit status %d\n", MSG_WIDTH, msg, status);
+    return status;
+}
+
 /* Pushes `c` and updates the deepest nesting. Returns -1 on failure. */
 static int handle_open(checker_t *ch, int c) {
     if (istack_push(ch->stack, c) != 0) {
@@ -52,7 +70,7 @@ static int handle_open(checker_t *ch, int c) {
  * error and returns -1 if nothing is open or the brackets do not match. */
 static int handle_close(checker_t *ch, int c) {
     if (istack_is_empty(ch->stack)) {
-        printf("line %zu, column %zu: found '%c', nothing open\n",
+        report(EXIT_FAILURE, "line %zu, column %zu: found '%c', nothing open",
                ch->line, ch->column, c);
         return -1;
     }
@@ -60,7 +78,7 @@ static int handle_close(checker_t *ch, int c) {
     int open;
     istack_pop(ch->stack, &open);
     if (closer_for(open) != c) {
-        printf("line %zu, column %zu: found '%c', expected '%c'\n",
+        report(EXIT_FAILURE, "line %zu, column %zu: found '%c', expected '%c'",
                ch->line, ch->column, c, closer_for(open));
         return -1;
     }
@@ -93,13 +111,12 @@ static int report_end(const checker_t *ch) {
     if (!istack_is_empty(ch->stack)) {
         int innermost;
         istack_peek(ch->stack, &innermost);
-        printf("end of input: %zu still open, innermost '%c'\n",
-               istack_count(ch->stack), innermost);
-        return EXIT_FAILURE;
+        return report(EXIT_FAILURE, "end of input: %zu still open, "
+                      "innermost '%c'", istack_count(ch->stack), innermost);
     }
 
-    printf("balanced: %zu pairs, deepest %zu\n", ch->pairs, ch->deepest);
-    return EXIT_SUCCESS;
+    return report(EXIT_SUCCESS, "balanced: %zu pairs, deepest %zu",
+                  ch->pairs, ch->deepest);
 }
 
 int main(void) {
