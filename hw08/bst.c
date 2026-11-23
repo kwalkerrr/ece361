@@ -130,3 +130,20 @@ size_t bst_size(const bst_t *t) {
     }
     return t->size;
 }
+
+/* Returns the number of nodes on the longest path down from `n`. */
+static size_t node_height(const node_t *n) {
+    if (n == NULL) {
+        return 0;
+    }
+    size_t left = node_height(n->left);
+    size_t right = node_height(n->right);
+    return 1 + (left > right ? left : right);
+}
+
+size_t bst_height(const bst_t *t) {
+    if (t == NULL) {
+        return 0;
+    }
+    return node_height(t->root);
+}
