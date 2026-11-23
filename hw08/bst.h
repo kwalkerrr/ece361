@@ -23,7 +23,7 @@ void bst_destroy(bst_t *t);
 /**
  * Adds `key` to the tree. Smaller keys go left, all others go right. Duplicate
  * keys are kept. If `t` is `NULL` or there is not enough memory available, does
- * nothing.
+ * nothing. Ported from `insert` in BinarySearchTree.c.
  * @param t The address of the tree to add to.
  * @param key The value to add to the tree.
  * @return -1 if `t` is `NULL` or if there is not enough memory available to
@@ -33,7 +33,7 @@ int bst_insert(bst_t *t, int key);
 
 /**
  * Determines whether `key` is in the tree. If there are duplicate values, the
- * search stops at the first match.
+ * search stops at the first match. Ported from `search` in BinarySearchTree.c.
  * @param t The address of the tree to search.
  * @param key The value to check for.
  * @param visits The address of the variable in which to store the number of
