@@ -1,0 +1,4 @@
+*.o
+/BinarySearchTree.c
+/tests/test_bst
+/treestats
