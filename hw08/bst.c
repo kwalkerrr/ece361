@@ -90,9 +90,12 @@ int bst_insert(bst_t *t, int key) {
 
 /*
  * Searches down from `current` for `key`, adding 1 to `*count` for each node
- * left behind on the way. Ported from `search` in BinarySearchTree.c.
+ * compared. Ported from `search` in BinarySearchTree.c.
  */
 static bool node_search(const node_t *current, int key, size_t *count) {
+    if (current == NULL) { /* fix segmentation fault */
+        return false;
+    }
     while (current->key != key) {
         (*count)++;
 

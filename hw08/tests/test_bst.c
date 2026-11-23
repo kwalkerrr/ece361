@@ -160,8 +160,9 @@ static void test_destroy_full(void) {
 
 /* ---- the input that crashed: searching an empty tree ---- */
 
-/* Runs last: while the empty-tree crash is unfixed, this ends the program.
- * stdout is flushed first so the earlier results are not lost with it. */
+/* The original's search dereferenced the root without checking for NULL, so
+ * searching an empty tree crashed. Kept to catch that crash if it returns;
+ * stdout is flushed first so the earlier results survive a crash. */
 static void test_empty_contains(void) {
     bst_t *t = new_tree();
     size_t visits = UNTOUCHED;
