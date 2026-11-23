@@ -123,3 +123,10 @@ bool bst_contains(const bst_t *t, int key, size_t *visits) {
     }
     return found;
 }
+
+size_t bst_size(const bst_t *t) {
+    if (t == NULL) {
+        return 0;
+    }
+    return t->size;
+}
