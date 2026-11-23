@@ -23,3 +23,21 @@ bst_t *bst_create(void) {
     t->size = 0;
     return t;
 }
+
+/* Frees `n` and every node below it. Children are freed before their parent. */
+static void node_destroy(node_t *n) {
+    if (n == NULL) {
+        return;
+    }
+    node_destroy(n->left);
+    node_destroy(n->right);
+    free(n);
+}
+
+void bst_destroy(bst_t *t) {
+    if (t == NULL) {
+        return;
+    }
+    node_destroy(t->root);
+    free(t);
+}
