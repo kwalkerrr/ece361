@@ -87,3 +87,39 @@ int bst_insert(bst_t *t, int key) {
         }
     }
 }
+
+/*
+ * Searches down from `current` for `key`, adding 1 to `*count` for each node
+ * left behind on the way. Ported from `search` in BinarySearchTree.c.
+ */
+static bool node_search(const node_t *current, int key, size_t *count) {
+    while (current->key != key) {
+        (*count)++;
+
+        if (current->key > key) {
+            current = current->left;
+        }
+        else {
+            current = current->right;
+        }
+
+        if (current == NULL) {
+            return false;
+        }
+    }
+    (*count)++; /* count the node that matched */
+    return true;
+}
+
+bool bst_contains(const bst_t *t, int key, size_t *visits) {
+    size_t count = 0;
+    bool found = false;
+
+    if (t != NULL) {
+        found = node_search(t->root, key, &count);
+    }
+    if (visits != NULL) {
+        *visits = count;
+    }
+    return found;
+}
